@@ -1,0 +1,63 @@
+{
+  "note": "Uptime Kuma monitor configuration for ScrammyNAS. Credentials are redacted — fill in smtpUsername/smtpPassword before importing.",
+  "notifications": [
+    {
+      "name": "Gmail Alerts",
+      "type": "smtp",
+      "isDefault": true,
+      "smtpHost": "smtp.gmail.com",
+      "smtpPort": 587,
+      "smtpSecure": false,
+      "smtpUsername": "YOUR_GMAIL@gmail.com",
+      "smtpPassword": "YOUR_APP_PASSWORD",
+      "smtpFrom": "YOUR_GMAIL@gmail.com",
+      "smtpTo": "YOUR_ALERT_RECIPIENT@gmail.com"
+    }
+  ],
+  "monitors": [
+    {
+      "name": "ScrammyNAS - Ping",
+      "type": "ping",
+      "hostname": "192.168.0.2",
+      "interval": 60,
+      "retryInterval": 60,
+      "maxretries": 3
+    },
+    {
+      "name": "ScrammyNAS - SSH (22)",
+      "type": "port",
+      "hostname": "192.168.0.2",
+      "port": 22,
+      "interval": 60,
+      "retryInterval": 60,
+      "maxretries": 3
+    },
+    {
+      "name": "ScrammyNAS - SMB Share (445)",
+      "type": "port",
+      "hostname": "192.168.0.2",
+      "port": 445,
+      "interval": 60,
+      "retryInterval": 60,
+      "maxretries": 3
+    },
+    {
+      "name": "ScrammyNAS - UGOS Web UI (9443)",
+      "type": "port",
+      "hostname": "192.168.0.2",
+      "port": 9443,
+      "interval": 60,
+      "retryInterval": 60,
+      "maxretries": 3
+    },
+    {
+      "name": "Scrutiny (SMART Monitor)",
+      "type": "http",
+      "url": "http://192.168.0.2:8080/api/health",
+      "accepted_statuscodes": ["200-299"],
+      "interval": 60,
+      "retryInterval": 60,
+      "maxretries": 3
+    }
+  ]
+}
