@@ -1,0 +1,28 @@
+version: 1
+
+web:
+  listen:
+    port: 8080
+    host: 0.0.0.0
+  database:
+    location: /opt/scrutiny/config/scrutiny.db
+  src:
+    frontend:
+      path: /opt/scrutiny/web
+
+log:
+  file: ''
+  level: INFO
+
+scrutiny:
+  notify:
+    level: warn   # warn = alert on any warn/fail attribute; change to "fail" for critical only
+
+notify:
+  urls:
+    # Gmail example (create App Password at myaccount.google.com/apppasswords):
+    - "smtp://YOUR_EMAIL%40gmail.com:YOUR_APP_PASSWORD@smtp.gmail.com:587/?fromAddress=YOUR_EMAIL@gmail.com&toAddresses=ALERT_RECIPIENT@gmail.com&UseStartTLS=Yes"
+    # Office 365 / generic SMTP:
+    # - "smtp://USERNAME:PASSWORD@smtp.yourhost.com:587/?fromAddress=nas@yourhost.com&toAddresses=you@yourhost.com&UseStartTLS=Yes"
+    # SSL on port 465 instead of STARTTLS on 587:
+    # - "smtp://YOUR_EMAIL%40gmail.com:YOUR_APP_PASSWORD@smtp.gmail.com:465/?fromAddress=YOUR_EMAIL@gmail.com&toAddresses=ALERT@gmail.com&UseSSL=Yes"

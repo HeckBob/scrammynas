@@ -1,0 +1,10 @@
+# Claude Code metadata
+.claude/
+
+# Real credentials — never commit these
+nas-monitoring/scrutiny/config/scrutiny.yaml
+nas-monitoring/.env
+
+# OS noise
+.DS_Store
+Thumbs.db

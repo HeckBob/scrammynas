@@ -1,0 +1,60 @@
+services:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # SCRUTINY — SMART drive health monitoring
+  #   Web UI:  http://<NAS-IP>:8080
+  #   Alerts emailed on SMART failures / pre-failure attributes
+  # ─────────────────────────────────────────────────────────────────────────────
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    container_name: scrutiny
+    restart: unless-stopped
+    cap_add:
+      - SYS_RAWIO   # required to read SMART data
+      - SYS_ADMIN   # required for NVMe
+    volumes:
+      - /run/udev:/run/udev:ro                          # device detection
+      - ./scrutiny/config:/opt/scrutiny/config          # scrutiny.yaml lives here
+      - scrutiny_influxdb:/opt/scrutiny/influxdb        # time-series SMART history
+    devices:
+      # ── HDD bays (DH4300 Plus has 4 bays) ───────────────────────────────────
+      - /dev/sda
+      - /dev/sdb
+      - /dev/sdc
+      - /dev/sdd
+      # ── NVMe slots (uncomment whichever are populated) ───────────────────────
+      # - /dev/nvme0
+      # - /dev/nvme1
+    ports:
+      - "${SCRUTINY_PORT:-8080}:8080"
+    environment:
+      # Tells the built-in InfluxDB where to listen (keep localhost — it's internal)
+      - SCRUTINY_WEB_INFLUXDB_HOST=localhost
+    networks:
+      - monitoring
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # UPTIME KUMA — service & container outage monitoring
+  #   Web UI:  http://<NAS-IP>:3001
+  #   Set up monitors and email notifications through the UI on first run.
+  #   Monitors: HTTP URLs · TCP ports · Ping · Docker container status
+  # ─────────────────────────────────────────────────────────────────────────────
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: unless-stopped
+    volumes:
+      - uptime_kuma_data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro   # lets Kuma see Docker container health
+    ports:
+      - "${KUMA_PORT:-3001}:3001"
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  scrutiny_influxdb:
+  uptime_kuma_data:
