@@ -1,63 +1,123 @@
 {
-  "note": "Uptime Kuma monitor configuration for ScrammyNAS. Credentials are redacted — fill in smtpUsername/smtpPassword before importing.",
+  "note": "Uptime Kuma monitor config for ScrammyNAS. Credentials redacted.",
   "notifications": [
     {
+      "id": 1,
       "name": "Gmail Alerts",
-      "type": "smtp",
+      "active": true,
+      "userId": 1,
       "isDefault": true,
+      "type": "smtp",
+      "applyExisting": false,
       "smtpHost": "smtp.gmail.com",
       "smtpPort": 587,
       "smtpSecure": false,
       "smtpUsername": "YOUR_GMAIL@gmail.com",
-      "smtpPassword": "YOUR_APP_PASSWORD",
       "smtpFrom": "YOUR_GMAIL@gmail.com",
-      "smtpTo": "YOUR_ALERT_RECIPIENT@gmail.com"
+      "smtpTo": "YOUR_ALERT_RECIPIENT@gmail.com",
+      "smtpPassword": "YOUR_APP_PASSWORD"
     }
   ],
   "monitors": [
     {
       "name": "ScrammyNAS - Ping",
-      "type": "ping",
+      "url": null,
       "hostname": "192.168.0.2",
+      "port": null,
+      "maxretries": 3,
+      "type": "ping",
       "interval": 60,
-      "retryInterval": 60,
-      "maxretries": 3
+      "retryInterval": 60
     },
     {
       "name": "ScrammyNAS - SSH (22)",
-      "type": "port",
+      "url": null,
       "hostname": "192.168.0.2",
       "port": 22,
+      "maxretries": 3,
+      "type": "port",
       "interval": 60,
-      "retryInterval": 60,
-      "maxretries": 3
+      "retryInterval": 60
     },
     {
       "name": "ScrammyNAS - SMB Share (445)",
-      "type": "port",
+      "url": null,
       "hostname": "192.168.0.2",
       "port": 445,
-      "interval": 60,
-      "retryInterval": 60,
-      "maxretries": 3
-    },
-    {
-      "name": "ScrammyNAS - UGOS Web UI (9443)",
+      "maxretries": 3,
       "type": "port",
-      "hostname": "192.168.0.2",
-      "port": 9443,
       "interval": 60,
-      "retryInterval": 60,
-      "maxretries": 3
+      "retryInterval": 60
     },
     {
       "name": "Scrutiny (SMART Monitor)",
-      "type": "http",
       "url": "http://192.168.0.2:8080/api/health",
-      "accepted_statuscodes": ["200-299"],
+      "hostname": null,
+      "port": null,
+      "maxretries": 3,
+      "type": "http",
       "interval": 60,
-      "retryInterval": 60,
-      "maxretries": 3
+      "retryInterval": 60
+    },
+    {
+      "name": "ScrammyNAS - UGOS Web UI (9443)",
+      "url": null,
+      "hostname": "192.168.0.2",
+      "port": 9443,
+      "maxretries": 3,
+      "type": "port",
+      "interval": 60,
+      "retryInterval": 60
+    },
+    {
+      "name": "ScrammyDocker1 - Ping",
+      "url": null,
+      "hostname": "192.168.0.5",
+      "port": null,
+      "maxretries": 3,
+      "type": "ping",
+      "interval": 60,
+      "retryInterval": 60
+    },
+    {
+      "name": "Frigate NVR",
+      "url": "http://192.168.0.5:5000",
+      "hostname": null,
+      "port": null,
+      "maxretries": 3,
+      "type": "http",
+      "interval": 60,
+      "retryInterval": 60
+    },
+    {
+      "name": "Portainer",
+      "url": "http://192.168.0.5:9000",
+      "hostname": null,
+      "port": null,
+      "maxretries": 3,
+      "type": "http",
+      "interval": 60,
+      "retryInterval": 60
+    },
+    {
+      "name": "Plex Media Server",
+      "url": "http://192.168.0.37:32400/identity",
+      "hostname": null,
+      "port": null,
+      "maxretries": 3,
+      "type": "http",
+      "interval": 60,
+      "retryInterval": 60
+    },
+    {
+      "name": "LobeChat (3210)",
+      "url": null,
+      "hostname": "192.168.0.5",
+      "port": 3210,
+      "maxretries": 3,
+      "type": "port",
+      "interval": 60,
+      "retryInterval": 60
     }
   ]
 }
