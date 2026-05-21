@@ -102,10 +102,10 @@
     {
       "name": "Plex Media Server",
       "url": "http://192.168.0.37:32400/identity",
-      "hostname": null,
-      "port": null,
+      "hostname": "192.168.0.37",
+      "port": 32400,
       "maxretries": 3,
-      "type": "http",
+      "type": "port",
       "interval": 60,
       "retryInterval": 60
     },
